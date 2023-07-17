@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KNotes</title>
+    <link rel="stylesheet" href="./static/saga-blue.css">
+    <link rel="stylesheet" href="./static/pico_default.css">
+    <link rel="stylesheet" href="./static/pico.css">
+    <link rel="stylesheet" href="./static/primeflex.min.css">
+    <link rel="stylesheet" href="./static/primeicons.css">
+    <link rel="stylesheet" href="./static/sweetalert2.min.css">
+    <link rel="stylesheet" href="./static/simplemde.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400&family=Nunito:wght@200;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            font-family: 'Nunito', sans-serif;
+            font-family: 'Nunito Sans', sans-serif;
+        }
+
+        body::-webkit-scrollbar {
+            width: 1em;
+        }
+
+        body::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background-color: darkgrey;
+            outline: 1px solid slategrey;
+        }
+    </style>
+</head>
+
+<body class="surface-0 p-2">
+    <div class="grid">
+        <div class="col-3 shadow-1 p-2 flex flex-column surface-0">
+            <div class="flex align-items-center p-1 border-bottom-1 border-200 border-round my-2">
+                <span class="mx-2"><i class="pi pi-file-edit text-3xl text-red-600"></i></span>
+                <div class="font-normal text-2xl text-700 m-0 p-0">KNotes</div>
+                <div class="htmx-indicator">
+                    loading
+                </div>
+            </div>
+            <div class="flex p-2 flex-column">
+                <div
+                    class="mb-2 py-2 border-200 border-1 px-3 w-full text-center border-round hover:surface-100 surface-50  cursor-pointer hover:text-800 text-700">
+                    New Note
+                </div>
+                <div
+                    class="text-600 border-round hover:surface-50 p-2 my-1 flex align-content-center cursor-pointer hover:text-800">
+                    <i class="pi pi-cog m-1"></i>
+                    <div class="mx-1">Settings</div>
+                </div>
+                <div class="text-base">
+                    <!-- Search -->
+                    <input  hx-get="/fetch/index/" hx-trigger="keyup changed delay:100ms, search, load" 
+                    hx-target="#notes-index"  type="search" name="search" placeholder="Search">
+                </div>
+                <div id="notes-index" class="my-1 shadow-1 p-2 surface-0 overflow-scroll" style="height: calc(100vh - 320px)"> </div>
+                
+            </div>
+        </div>
+        <div class="col-9 surface-50">
+            <div id="preview-container-div" class="surface-50 text-700 p-3 overflow-scroll" style="height: calc(100vh - 50px)">
+                <div class="p-5 text-5xl text-800 w-full text-center">
+                    Select a note to preview
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./static/htmx.min.js"></script>
+<script src="./static/jquery.min.js"></script>
+<script src="./static/sweetalert2.min.js"></script>
+<script src="./static/showdown.min.js"></script>
+<script src="./static/simplemde.min.js"></script>
+<script>
+    const tabInfos = document.querySelectorAll('[data-tab-info]')
+    document.querySelectorAll('[data-tab-value]').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('[data-tab-value]').forEach(i => i.classList.remove('bg-blue-100'));
+            const target = document.querySelector(tab.dataset.tabValue);
+            tabInfos.forEach(tabInfo => { tabInfo.classList.remove('block') })
+            target.classList.add('block');
+            tab.classList.add('bg-blue-100');
+        })
+    })
+</script>
+
+</html>

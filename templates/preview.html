@@ -1,0 +1,8 @@
+<div id="showMarkdown">
+
+</div>
+
+<script>
+	var md = {{markdown|tojson}};
+	document.getElementById('showMarkdown').innerHTML = (new showdown.Converter()).makeHtml(md);
+</script>

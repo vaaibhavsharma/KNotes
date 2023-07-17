@@ -1,0 +1,17 @@
+{% for note in notes %}
+<div data-tooltip="{{note.name}}"
+    class="border-bottom-1 hover:surface-200 cursor-pointer border-round border-300 flex flex-column p-1">
+    <div  hx-indicator=".htmx-indicator" class="text-800 capitalize" hx-get="/fetch/{{note.pointer}}/" hx-trigger="click"
+        hx-target="#preview-container-div" hx-swap="innerHTML">
+        {{note.name|truncate(35)}}
+    </div>
+    <div class="flex flew-wrap gap-1 text-900" style="font-size: 0.65rem;">
+        {% for tag in note.tags %}
+        <span class="vertical-align-middle surface-200 border-round p-1 m-1">
+            <i class="pi pi-tag m-1"></i>
+            <small>{{tag}}</small>
+        </span>
+        {% endfor %}
+    </div>
+</div>
+{% endfor %}

@@ -1,0 +1,6 @@
+<textarea id="editorMarkdown"></textarea>
+
+<script>
+    var simplemde = new SimpleMDE({ element: document.getElementById("editorMarkdown")});
+    simplemde.value({{markdown|tojson}});
+</script>
